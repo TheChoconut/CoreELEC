@@ -7,7 +7,7 @@ PKG_SHA256="76940cd4e778e8093579a9d195b25fff5e936e9dc6242068528b437a76764f91"
 PKG_LICENSE="LGPL3"
 PKG_SITE="https://www.gnu.org/software/libidn/"
 PKG_URL="http://ftpmirror.gnu.org/gnu/libidn/libidn2-${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="toolchain libunistring"
 PKG_LONGDESC="Free software implementation of IDNA2008, Punycode and TR46."
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-doc \

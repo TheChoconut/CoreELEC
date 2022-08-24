@@ -67,7 +67,7 @@ pre_configure_target() {
                          -Dsiren=disabled \
                          -Dsmooth=disabled \
                          -Dspeed=disabled \
-                         -Dsubenc=disabled \
+                         -Dsubenc=enabled \
                          -Dswitchbin=disabled \
                          -Dtimecode=disabled \
                          -Dvideofilters=disabled \
