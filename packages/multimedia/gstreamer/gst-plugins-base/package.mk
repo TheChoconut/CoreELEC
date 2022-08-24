@@ -14,11 +14,11 @@ PKG_BUILD_FLAGS="-gold"
 pre_configure_target() {
   PKG_MESON_OPTS_TARGET="-Dgl=disabled \
                          -Dadder=disabled \
-                         -Dapp=disabled \
-                         -Daudioconvert=disabled \
+                         -Dapp=enabled \
+                         -Daudioconvert=enabled \
                          -Daudiomixer=disabled \
-                         -Daudiorate=disabled \
-                         -Daudioresample=disabled \
+                         -Daudiorate=enabled \
+                         -Daudioresample=enabled \
                          -Daudiotestsrc=disabled \
                          -Dcompositor=disabled \
                          -Dencoding=disabled \
@@ -26,7 +26,7 @@ pre_configure_target() {
                          -Dgio-typefinder=disabled \
                          -Doverlaycomposition=disabled \
                          -Dpbtypes=disabled \
-                         -Dplayback=disabled \
+                         -Dplayback=enabled \
                          -Drawparse=enabled \
                          -Dsubparse=enabled \
                          -Dtcp=disabled \
@@ -34,8 +34,8 @@ pre_configure_target() {
                          -Dvideoconvertscale=disabled \
                          -Dvideorate=disabled \
                          -Dvideotestsrc=disabled \
-                         -Dvolume=disabled \
-                         -Dalsa=disabled \
+                         -Dvolume=enabled \
+                         -Dalsa=enabled \
                          -Dcdparanoia=disabled \
                          -Dlibvisual=disabled \
                          -Dogg=disabled \
@@ -60,9 +60,4 @@ pre_configure_target() {
                          -Dpackage-name=gst-plugins-base \
                          -Dpackage-origin=LibreELEC.tv \
                          -Ddoc=disabled"
-}
-
-post_makeinstall_target() {
-  # clean up
-  safe_remove ${INSTALL}
 }

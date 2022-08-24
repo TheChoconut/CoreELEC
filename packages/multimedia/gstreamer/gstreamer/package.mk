@@ -11,9 +11,9 @@ PKG_DEPENDS_TARGET="toolchain glib glib:host"
 PKG_LONGDESC="GStreamer open-source multimedia framework core library"
 
 pre_configure_target() {
-  PKG_MESON_OPTS_TARGET="-Dgst_debug=false \
+  PKG_MESON_OPTS_TARGET="-Dgst_debug=true \
                          -Dgst_parse=true \
-                         -Dregistry=false \
+                         -Dregistry=true \
                          -Dtracer_hooks=false \
                          -Doption-parsing=true \
                          -Dpoisoning=false \
@@ -26,7 +26,7 @@ pre_configure_target() {
                          -Dexamples=disabled \
                          -Dtests=disabled \
                          -Dbenchmarks=disabled \
-                         -Dtools=disabled \
+                         -Dtools=enabled \
                          -Ddoc=disabled \
                          -Dintrospection=disabled \
                          -Dnls=disabled \
@@ -42,5 +42,5 @@ pre_configure_target() {
 post_makeinstall_target() {
   # clean up
   safe_remove ${INSTALL}/usr/share
-  safe_remove ${INSTALL}/usr/lib/{libgstcontroller-1.0*,libgstnet-1.0*}
+  safe_remove ${INSTALL}/usr/lib/{libgstcontroller-1.0*}
 }

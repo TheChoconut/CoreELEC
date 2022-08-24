@@ -1,0 +1,79 @@
+diff --git a/Source/JavaScriptCore/inspector/remote/glib/RemoteInspectorUtils.cpp b/Source/JavaScriptCore/inspector/remote/glib/RemoteInspectorUtils.cpp
+index 9421a8b6..eea0c213 100644
+--- a/Source/JavaScriptCore/inspector/remote/glib/RemoteInspectorUtils.cpp
++++ b/Source/JavaScriptCore/inspector/remote/glib/RemoteInspectorUtils.cpp
+@@ -43,13 +43,11 @@ GRefPtr<GBytes> backendCommands()
+     static std::once_flag flag;
+     std::call_once(flag, [] {
+         const char* libDir = PKGLIBDIR;
+-#if ENABLE(DEVELOPER_MODE)
+         // Probably no need for a specific env var here. Assume the inspector resources.so file is
+         // in the same directory as the injected bundle lib, for developer builds.
+         const char* path = g_getenv("WEBKIT_INJECTED_BUNDLE_PATH");
+         if (path && g_file_test(path, G_FILE_TEST_IS_DIR))
+             libDir = path;
+-#endif
+         GUniquePtr<char> bundleFilename(g_build_filename(libDir, "libWPEWebInspectorResources.so", nullptr));
+         GModule* resourcesModule = g_module_open(bundleFilename.get(), G_MODULE_BIND_LAZY);
+         if (!resourcesModule) {
+diff --git a/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp b/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp
+index 42a97ffc..36a8f268 100644
+--- a/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp
++++ b/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.cpp
+@@ -35,7 +35,7 @@ namespace WebCore {
+ //   ALPHAX_Q ALPHAY_Q REMAPX_D REMAPY_D
+ 
+ 
+-static alignas(16) short s_FELightingConstantsForNeon[] = {
++static short s_FELightingConstantsForNeon[] = {
+     // Alpha coefficients.
+     -2, 1, 0, -1, 2, 1, 0, -1,
+     0, -1, -2, -1, 0, 1, 2, 1,
+diff --git a/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp b/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp
+index 622cdc08..f88da328 100644
+--- a/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp
++++ b/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp
+@@ -32,7 +32,6 @@
+ 
+ namespace WebKit {
+ 
+-#if ENABLE(DEVELOPER_MODE)
+ static String getExecutablePath()
+ {
+     CString executablePath = FileSystem::currentExecutablePath();
+@@ -40,11 +39,9 @@ static String getExecutablePath()
+         return FileSystem::parentPath(FileSystem::stringFromFileSystemRepresentation(executablePath.data()));
+     return { };
+ }
+-#endif
+ 
+ static String findWebKitProcess(const char* processName)
+ {
+-#if ENABLE(DEVELOPER_MODE)
+     static const char* execDirectory = g_getenv("WEBKIT_EXEC_PATH");
+     if (execDirectory) {
+         String processPath = FileSystem::pathByAppendingComponent(FileSystem::stringFromFileSystemRepresentation(execDirectory), processName);
+@@ -58,7 +55,6 @@ static String findWebKitProcess(const char* processName)
+         if (FileSystem::fileExists(processPath))
+             return processPath;
+     }
+-#endif
+ 
+     return FileSystem::pathByAppendingComponent(FileSystem::stringFromFileSystemRepresentation(PKGLIBEXECDIR), processName);
+ }
+diff --git a/Source/WebKit/UIProcess/API/glib/WebKitWebContext.cpp b/Source/WebKit/UIProcess/API/glib/WebKitWebContext.cpp
+index 1b128a4c..1decea26 100644
+--- a/Source/WebKit/UIProcess/API/glib/WebKitWebContext.cpp
++++ b/Source/WebKit/UIProcess/API/glib/WebKitWebContext.cpp
+@@ -312,11 +312,9 @@ WEBKIT_DEFINE_TYPE(WebKitWebContext, webkit_web_context, G_TYPE_OBJECT)
+ 
+ static const char* injectedBundleDirectory()
+ {
+-#if ENABLE(DEVELOPER_MODE)
+     const char* bundleDirectory = g_getenv("WEBKIT_INJECTED_BUNDLE_PATH");
+     if (bundleDirectory && g_file_test(bundleDirectory, G_FILE_TEST_IS_DIR))
+         return bundleDirectory;
+-#endif
+ 
+ #if PLATFORM(GTK)
+     static const char* injectedBundlePath = LIBDIR G_DIR_SEPARATOR_S "webkit2gtk-" WEBKITGTK_API_VERSION_STRING
