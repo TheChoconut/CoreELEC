@@ -358,6 +358,7 @@ gst_aml_vdec_start(GstVideoDecoder * dec)
 	amlvdec->list = NULL;
 	set_sysfs_str("/sys/class/vfm/map", "rm default");
 	set_sysfs_str("/sys/class/vfm/map", "add default decoder ppmgr deinterlace amvideo");
+	set_sysfs_str("/sys/class/video/disable_video", "0");
 	return TRUE;
 }
 
@@ -739,15 +740,7 @@ gst_aml_vdec_decode (GstAmlVdec *amlvdec, GstBuffer * buf, GstVideoCodecFrame *f
 		gst_buffer_map(buf, &map, GST_MAP_READ);
 		data = map.data;
 		size = map.size;
-#if 0
-		FILE *fp2= fopen("/mnt/codec.data","a+");
-		if (fp2) {
-			int flen=fwrite(data,1,size,fp2);
-			fclose(fp2);
-		} else {
-			g_print("could not open file:codec.data");
-		}
-#endif
+
 		while (size > 0) {
 			written = codec_write(amlvdec->pcodec, data, size);
 			if (written >= 0) {

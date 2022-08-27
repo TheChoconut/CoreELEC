@@ -2,13 +2,11 @@
 #ifndef __AML_STREAMINFO_H__
 #define __AML_STREAMINFO_H__
 #include <gst/gst.h>
-//#include <player.h>
-#include "amlutils.h"
 #include  <codec.h>
 #define AML_STREAMINFO_BASE(x) ((AmlStreamInfo *)(x))
 
 typedef enum{
-     AmlStateNormal,
+    AmlStateNormal,
     AmlStateFastForward,
     AmlStateSlowForward,
 }AmlState;
