@@ -29,6 +29,22 @@ index 42a97ffc..36a8f268 100644
      // Alpha coefficients.
      -2, 1, 0, -1, 2, 1, 0, -1,
      0, -1, -2, -1, 0, 1, 2, 1,
+diff --git a/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h b/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h
+index c6d17f57..665fab19 100644
+--- a/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h
++++ b/Source/WebCore/platform/graphics/cpu/arm/filters/FELightingNEON.h
+@@ -96,9 +96,9 @@ void neonDrawLighting(FELightingPaintingDataForNeon*);
+ 
+ inline void FELightingSoftwareApplier::applyPlatformNeon(const FELightingSoftwareApplier::LightingData& data, const LightSource::PaintingData& paintingData)
+ {
+-    WebCore::FELightingFloatArgumentsForNeon alignas(16) floatArguments;
++    WebCore::FELightingFloatArgumentsForNeon floatArguments;
+     WebCore::FELightingPaintingDataForNeon neonData = {
+-        data.pixels->bytes(),
++        data.pixels->data(),
+         1,
+         data.width - 2,
+         data.height - 2,
 diff --git a/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp b/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp
 index 622cdc08..f88da328 100644
 --- a/Source/WebKit/Shared/glib/ProcessExecutablePathGLib.cpp

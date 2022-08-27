@@ -71,7 +71,7 @@ gint amlVideoInfoInit(AmlStreamInfo *info, codec_para_t *pcodec, GstStructure  *
     data_buf = (GValue *) gst_structure_get_value(structure, "codec_data");
     if(data_buf){
         info->configdata = gst_buffer_copy(gst_value_get_buffer(data_buf));
-        AML_DUMP_BUFFER(info->configdata, "Video Codec Data");
+        //AML_DUMP_BUFFER(info->configdata, "Video Codec Data");
     }
     pcodec->am_sysinfo.height = video->height;
     pcodec->am_sysinfo.width = video->width;
@@ -343,7 +343,6 @@ static gint h264_add_startcode(AmlStreamInfo* info, codec_para_t *pcodec, GstBuf
     data = map.data;
     p = data;
     gst_buffer_unmap(buf, &map);
-    //g_print("h264_update_frame_header");
     if (p != NULL) {
         if (check_size_in_buffer(p, size)) {
             while ((p + 4) < (data + size)) {

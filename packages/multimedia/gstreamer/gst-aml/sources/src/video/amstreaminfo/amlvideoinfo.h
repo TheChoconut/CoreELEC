@@ -11,7 +11,7 @@
 #define SYNC_OUTSIDE    (2)
 #define UNIT_FREQ       96000
 #define PTS_FREQ        90000
-#define AV_SYNC_THRESH    PTS_FREQ*30
+#define AV_SYNC_THRESH  PTS_FREQ*30
 
 typedef struct{
     AmlStreamInfo streaminfo;
@@ -45,10 +45,6 @@ typedef struct{
 
 typedef struct{
     AmlVideoInfo videoinfo;
-}AmlInfoH263;
-
-typedef struct{
-    AmlVideoInfo videoinfo;
 }AmlInfoJpeg;
 
 typedef struct{
@@ -70,7 +66,6 @@ AmlStreamInfo *newAmlInfoH265();
 AmlStreamInfo *newAmlInfoVP9();
 AmlStreamInfo *newAmlInfoMpeg();
 AmlStreamInfo *newAmlInfoMsmpeg();
-AmlStreamInfo *newAmlInfoH263();
 AmlStreamInfo *newAmlInfoJpeg();
 AmlStreamInfo *newAmlInfoWmv();
 AmlStreamInfo *newAmlInfoDivx();

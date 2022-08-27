@@ -2,9 +2,6 @@
 #include "amlstreaminfo.h"
 #include "amlvideoinfo.h"
 
-//media stream info class ,in clude audio and video
-//typedef int (*AmlCallBackFunc)(void *data);
-
 int amlStreamInfoWriteHeader(AmlStreamInfo *info, codec_para_t *pcodec)
 {
 	GstMapInfo map;

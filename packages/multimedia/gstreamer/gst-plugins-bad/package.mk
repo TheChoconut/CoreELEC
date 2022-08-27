@@ -26,7 +26,7 @@ pre_configure_target() {
                          -Dbayer=disabled \
                          -Dcamerabin2=disabled \
                          -Dcoloreffects=disabled \
-                         -Ddebugutils=disabled \
+                         -Ddebugutils=enabled \
                          -Ddvbsubenc=disabled \
                          -Ddvbsuboverlay=disabled \
                          -Ddvdspu=disabled \
@@ -40,7 +40,7 @@ pre_configure_target() {
                          -Dgeometrictransform=disabled \
                          -Did3tag=disabled \
                          -Dinter=disabled \
-                         -Dinterlace=disabled \
+                         -Dinterlace=enabled \
                          -Divfparse=disabled \
                          -Divtc=disabled \
                          -Djp2kdecimator=disabled \

@@ -43,13 +43,27 @@ endforeach
 plugin_sources = [
   'src/video/amlsysctl/gstamlsysctl.c',
   'src/video/amstreaminfo/amlstreaminfo.c',
-  'src/video/amstreaminfo/amlutils.c',
   'src/video/amlvdec/amlvideoinfo.c',
   'src/video/amlvdec/gstamlvdec.c',
 ]
 
 gstpluginexample = library('gstamlvdec',
   plugin_sources,
+  c_args: plugin_c_args,
+  dependencies : [gst_dep, gstvideo_dep, libamcodec_dep],
+  install : true,
+  install_dir : plugins_install_dir,
+)
+
+plugin2_sources = [
+  'src/video/amlsysctl/gstamlsysctl.c',
+  'src/video/amstreaminfo/amlstreaminfo.c',
+  'src/video/amlvdec/amlvideoinfo.c',
+  'src/video/amlvdec/gstamlvsink.c',
+]
+
+gstpluginexample = library('gstamlvsink',
+  plugin2_sources,
   c_args: plugin_c_args,
   dependencies : [gst_dep, gstvideo_dep, libamcodec_dep],
   install : true,

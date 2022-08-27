@@ -1476,10 +1476,10 @@ index 0000000..e39524b
 +}
 diff --git a/src/amlogic/view-backend.cpp b/src/amlogic/view-backend.cpp
 new file mode 100644
-index 0000000..9aca553
+index 0000000..46bb35f
 --- /dev/null
 +++ b/src/amlogic/view-backend.cpp
-@@ -0,0 +1,296 @@
+@@ -0,0 +1,292 @@
 +/*
 + * Copyright (C) 2015, 2016 Igalia S.L.
 + * Copyright (C) 2015, 2016 Metrological
@@ -1679,7 +1679,8 @@ index 0000000..9aca553
 +    ge2d_fd = open("/dev/ge2d", O_RDWR);
 +    if (ge2d_fd < 0)
 +    {
-+        printf("[AML ViewBackend] Failed to open /dev/ge2d - cursor will not be rendered.\n");
++        printf("[AML ViewBackend] Failed to open /dev/ge2d - cursor will be disabled.\n");
++        WPE::LibinputServer::singleton().setHandlePointerEvents(false);
 +        return;
 +    }
 +
@@ -1708,11 +1709,10 @@ index 0000000..9aca553
 +
 +    // TODO: instead of using a rectangle, try
 +    // blitting the cursor.
-+    // Tell the hardware the destination is /dev/fb0
 +    struct config_para_s config;
 +    memset(&config, 0x00, sizeof(config));
 +
-+    config.src_dst_type = OSD0_OSD1;
++    config.src_dst_type = OSD0_OSD0;
 +
 +    int ret = ioctl(ge2d_fd, GE2D_CONFIG, &config);
 +
@@ -1720,15 +1720,11 @@ index 0000000..9aca553
 +    struct ge2d_para_s fillRectParam;
 +    fillRectParam.src1_rect.x = event->x;
 +    fillRectParam.src1_rect.y = event->y;
-+    fillRectParam.src1_rect.w = std::min<uint32_t>(16, std::max<uint32_t>(0, displaySize.first - event->x));
-+    fillRectParam.src1_rect.h = std::min<uint32_t>(16, std::max<uint32_t>(0, displaySize.second - event->y));
++    fillRectParam.src1_rect.w = std::min<uint32_t>(ViewBackend::Cursor::cursorWidth,  std::max<uint32_t>(0, displaySize.first - event->x));
++    fillRectParam.src1_rect.h = std::min<uint32_t>(ViewBackend::Cursor::cursorHeight, std::max<uint32_t>(0, displaySize.second - event->y));
 +    fillRectParam.color = 0x0000ffff; // R G B A
 +
 +    ret = ioctl(ge2d_fd, GE2D_FILLRECTANGLE, &fillRectParam);
-+
-+    // coords for the mouse
-+    //event->x
-+    //event->y
 +}
 +
 +void ViewBackend::Cursor::handleAxisEvent(struct wpe_input_axis_event* event)
